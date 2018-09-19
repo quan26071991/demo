@@ -4,7 +4,7 @@ pipeline {
         maven 'M3'
     }
 	triggers {
-        cron('H/30 * * * *')
+        cron('H/5 * * * *')
     }
     stages {
         stage ('Clean source before build') {
@@ -46,13 +46,13 @@ pipeline {
     }
     post { 
         always { 
-            echo 'I have finished!'
+            echo 'BUILD FINISHED'
         }
         success {
-            echo 'I succeeeded'
+            echo 'BUILD SUCCESS'
         }
         failure {
-            echo 'I failed'
+            echo 'BUILD FAILURE'
         }
     }
 }
