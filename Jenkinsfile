@@ -38,11 +38,6 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
         stage('Send mail') {
             steps {
                 echo 'Sending email....'
