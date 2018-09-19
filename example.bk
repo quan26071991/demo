@@ -7,10 +7,11 @@ pipeline {
         cron('H/30 * * * *')
     }
     stages {
-        stage ('Clean source before build') {
+        stage ('Clean and Checkout source before build') {
             steps {
                 dir('/home/quan/.jenkins/workspace/demo'){
                     sh 'git clean -fdx'
+                    sh "git pull origin master"
                 }
             }
         }
