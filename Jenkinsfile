@@ -7,19 +7,20 @@ pipeline {
         cron('H/5 * * * *')
     }
     stages {
+        stage ('Clean Build') {
+            steps {
+				echo 'Clean build'
+                dir('/home/quan/.jenkins/workspace/demo'){
+                    sh "mvn clean"
+                }
+            }
+        }
         stage ('Clean and Checkout source before build') {
             steps {
 				echo 'Clean and Checkout source before build..'
                 dir('/home/quan/.jenkins/workspace/demo'){
                     sh 'git clean -fdx'
                     sh "git pull origin master"
-                }
-            }
-        }
-        stage ('Clean Build') {
-            steps {
-                dir('/home/quan/.jenkins/workspace/demo'){
-                    sh "mvn clean"
                 }
             }
         }
@@ -42,13 +43,13 @@ pipeline {
         }
     }
     post {
-        always { //alway show result even if build fail or build success
+        always { //alway display result even if build fail or build success
             echo 'BUILD FINISHED'
         }
-        success {
+        success { // only run if build success
             echo 'BUILD SUCCESS'
         }
-        failure {
+        failure { // only run if build failure
             echo 'BUILD FAILURE'
         }
     }
