@@ -3,14 +3,16 @@ pipeline {
     tools {
         maven 'M3'
     }
-	triggers {
+	triggers { // trigger job every 5 minutes
         cron('H/5 * * * *')
     }
     stages {
-        stage ('Clean source before build') {
+        stage ('Clean and Checkout source before build') {
             steps {
+				echo 'Clean and Checkout source before build..'
                 dir('/home/quan/.jenkins/workspace/demo'){
                     sh 'git clean -fdx'
+                    sh "git pull origin master"
                 }
             }
         }
@@ -38,14 +40,9 @@ pipeline {
                 }
             }
         }
-        stage('Send mail') {
-            steps {
-                echo 'Sending email....'
-            }
-        }
     }
-    post { 
-        always { 
+    post {
+        always { //alway show result even if build fail or build success
             echo 'BUILD FINISHED'
         }
         success {
