@@ -18,7 +18,7 @@ pipeline {
         stage ('Clean and Checkout source before build') {
             steps {
 				echo 'Clean and Checkout source before build..'
-                dir('/home/quan/.jenkins/workspace/demo'){
+                dir('/home/quan/.jenkins/workspace/demo') {
                     sh 'git clean -fdx'
                     sh "git pull origin master"
                 }
@@ -27,7 +27,7 @@ pipeline {
         stage('Builds') {
             steps {
                 echo 'Building..'
-                dir('/home/quan/.jenkins/workspace/demo'){
+                dir('/home/quan/.jenkins/workspace/demo') {
                     sh "mvn install -DskipTests"
                 }
 
@@ -36,7 +36,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
-                dir('/home/quan/.jenkins/workspace/demo'){
+                dir('/home/quan/.jenkins/workspace/demo') {
                     sh "mvn surefire:test"
                 }
             }
